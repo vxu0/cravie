@@ -1,0 +1,7 @@
+{
+    "lightHeavy": 0.3,
+    "healthyLevel": 0.2,
+    "keywords": 0.4,
+    "cuisines": 0.3,
+    "restrictions": 0.4
+}

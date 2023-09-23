@@ -1,0 +1,184 @@
+{
+    "light": [
+        "Key Lime Pie",
+        "Gelato",
+        "Sorrel",
+        "Breadfruit",
+        "Green Tea Ice Cream",
+        "Fresh Fruit",
+        "Acai Bowl"
+    ],
+    "heavy": [
+        "Churros",
+        "Dulce de Leche",
+        "Gulab Jamun",
+        "Baklava"
+    ],
+    "middle": [
+        "Tres Leches Cake",
+        "Apple Pie",
+        "Chocolate Chip Cookies",
+        "Tiramisu",
+        "Cannoli",
+        "Cachapa",
+        "Plantains",
+        "Mango Sticky Rice",
+        "Kuih",
+        "Rasgulla",
+        "Peppermint Crisp Tart",
+        "Mochi",
+        "Bubble Tea"
+    ],
+    "warm": [
+        "Apple Pie",
+        "Chocolate Chip Cookies",
+        "Churros",
+        "Plantains"
+    ],
+    "fruity": [
+        "Mango Sticky Rice",
+        "Sorrel",
+        "Fresh Fruit",
+        "Acai Bowl"
+    ],
+    "chocolatey": [
+        "Chocolate Chip Cookies",
+        "Peppermint Crisp Tart"
+    ],
+    "baked": [
+        "Apple Pie",
+        "Chocolate Chip Cookies",
+        "Baklava"
+    ],
+    "creamy": [
+        "Tres Leches Cake",
+        "Cannoli",
+        "Gelato",
+        "Tiramisu",
+        "Mango Sticky Rice",
+        "Gulab Jamun",
+        "Rasgulla"
+    ],
+    "nutty": [
+        "Baklava"
+    ],
+    "4": [
+        "Churros",
+        "Tres Leches Cake",
+        "Gulab Jamun",
+        "Tiramisu",
+        "Cannoli",
+        "Dulce de Leche",
+        "Baklava"
+    ],
+    "3": [
+        "Peppermint Crisp Tart",
+        "Chocolate Chip Cookies",
+        "Rasgulla",
+        "Apple Pie",
+        "Key Lime Pie",
+        "Mochi",
+        "Kuih",
+        "Bubble Tea"
+    ],
+    "2": [
+        "Mango Sticky Rice",
+        "Plantains",
+        "Green Tea Ice Cream",
+        "Gelato"
+    ],
+    "1": [
+        "Sorrel",
+        "Fresh Fruit",
+        "Acai Bowl"
+    ],
+    "american": [
+        "Apple Pie",
+        "Chocolate Chip Cookies",
+        "Key Lime Pie",
+        "Acai Bowl",
+        "Fresh Fruit"
+    ],
+    "italian": [
+        "Tiramisu",
+        "Cannoli",
+        "Gelato"
+    ],
+    "mexican": [
+        "Tres Leches Cake",
+        "Churros"
+    ],
+    "latinAmerican": [
+        "Dulce de Leche",
+        "Acai Bowl"
+    ],
+    "caribbean": [
+        "Plantains",
+        "Sorrel",
+        "Breadfruit"
+    ],
+    "eastAsian": [
+        "Green Tea Ice Cream",
+        "Mochi",
+        "Bubble Tea"
+    ],
+    "southeastAsian": [
+        "Mango Sticky Rice",
+        "Kuih"
+    ],
+    "indian": [
+        "Gulab Jamun",
+        "Rasgulla"
+    ],
+    "mediterranean": [
+        "Baklava"
+    ],
+    "african": [
+        "Peppermint Crisp Tart"
+    ],
+    "veg": [
+        "Apple Pie",
+        "Chocolate Chip Cookies",
+        "Key Lime Pie",
+        "Tiramisu",
+        "Cannoli",
+        "Gelato",
+        "Tres Leches Cake",
+        "Churros",
+        "Dulce de Leche",
+        "Plantains",
+        "Sorrel",
+        "Breadfruit",
+        "Green Tea Ice Cream",
+        "Mochi",
+        "Bubble Tea",
+        "Mango Sticky Rice",
+        "Kuih",
+        "Gulab Jamun",
+        "Rasgulla",
+        "Baklava",
+        "Peppermint Crisp Tart",
+        "Fresh Fruit",
+        "Acai Bowl"
+    ],
+    "gf": [
+        "Gelato",
+        "Plantains",
+        "Sorrel",
+        "Breadfruit",
+        "Green Tea Ice Cream",
+        "Mochi",
+        "Bubble Tea",
+        "Mango Sticky Rice",
+        "Kuih",
+        "Fresh Fruit",
+        "Acai Bowl"
+    ],
+    "df": [
+        "Sorrel",
+        "Breadfruit",
+        "Mango Sticky Rice",
+        "Fresh Fruit",
+        "Acai Bowl"
+    ]
+}
