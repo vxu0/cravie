@@ -1,3 +1,9 @@
+import "./src/data/category-weights.json";
+import "./src/data/foods-savory.json";
+import "./src/data/foods-sweet.json";
+import "./src/data/savory-categorized.json";
+import "./src/data/sweet-categorized.json";
+
 async function loadFoods(userSweetSavory: string) {
   const response = await fetch(`./src/data/foods-${userSweetSavory}.json`);
   const foods = await response.json();
