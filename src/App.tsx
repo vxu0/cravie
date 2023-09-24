@@ -389,17 +389,16 @@ function App() {
               color="orange"
               fill="orange"
               className="cookie"
-              onClick={() => {
-                getRankedFoods(
+              onClick={async () => {
+                await getRankedFoods(
                   formOne.values,
                   chooseFormTwo().values,
                   formThree.values,
                   formFour.values
-                ).then((_) => {
-                  setSectionFourVisible(false);
-                  document.body.style.background = "#5fa3ac";
-                  setResultsVisible(true);
-                });
+                );
+                setSectionFourVisible(false);
+                document.body.style.background = "#5fa3ac";
+                setResultsVisible(true);
               }}
             ></IconCookie>
             <br></br>
