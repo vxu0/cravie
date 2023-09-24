@@ -9,6 +9,7 @@ import KeyButton from "./components/KeyButton";
 import { useForm } from "@mantine/form";
 import { getRankedFoods } from "./script.tsx";
 import ConfettiExplosion, { ConfettiProps } from "react-confetti-explosion";
+import { RenderList } from "@mantine/core/lib/TransferList/RenderList/RenderList";
 // https://www.gcu.edu/blog/gcu-experience/most-popular-cuisines-us
 // chat GPT
 // Give me a list of popular authentic dishes belonging to each of the following cuisines: American, Italian, Mexican, Latin American, Caribbean, East Asian, Southeast Asian, Indian, Mediterranean, African. I would like around eight to ten dishes for each cuisine, except for the American category, which can have more than eight to ten dishes. The dishes should be mostly main dishes, diverse in flavor and texture, as well as a few desserts and snacks. Please specify whether each dish is a main, dessert, or snack.
@@ -114,6 +115,10 @@ function App() {
     }
     return formTwoSavory;
   }
+
+  let resultOne = null;
+  let resultTwo = null;
+  let resultThree = null;
 
   return (
     <>
@@ -398,9 +403,7 @@ function App() {
                   formThree.values,
                   formFour.values
                 );
-                setTimeout(() => {
-                  setResultsVisible(true);
-                }, 1000);
+                setResultsVisible(true);
               }}
             ></IconCookie>
             <br></br>
@@ -417,13 +420,14 @@ function App() {
             </h1>
             <br />
             <h1>
-              <a id="resultOne"></a>
+              <a id="resultOne">{resultOne}</a>
             </h1>
             {resultsVisible && <ConfettiExplosion {...largeProps} />}
             <br />
             <h2>
               <i>
-                alternatives: {<i id="resultTwo" />}, {<i id="resultThree" />}
+                alternatives: {<i id="resultTwo">{resultTwo}</i>},{" "}
+                {<i id="resultThree">{resultThree}</i>}
               </i>
             </h2>
             <br></br>

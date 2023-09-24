@@ -1,3 +1,5 @@
+import { useForceUpdate } from "@mantine/hooks";
+
 async function loadFoods(userSweetSavory: string) {
   const response = await fetch(`foods-${userSweetSavory}.json`);
   const foods = await response.json();
@@ -55,8 +57,8 @@ async function getRankedFoods(
   document.getElementById("resultTwo")?.appendChild(resultTwo);
   document.getElementById("resultThree")?.appendChild(resultThree);
 
-  return rankedFoods;
-  // return { resultOne, resultTwo, resultThree };
+  useForceUpdate();
+  return [resultOne, resultTwo, resultThree];
 }
 
 async function calculateScores(
