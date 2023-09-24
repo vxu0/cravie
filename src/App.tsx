@@ -389,16 +389,18 @@ function App() {
               color="orange"
               fill="orange"
               className="cookie"
-              onClick={async () => {
+              onClick={() => {
+                setSectionFourVisible(false);
+                document.body.style.background = "#5fa3ac";
                 getRankedFoods(
                   formOne.values,
                   chooseFormTwo().values,
                   formThree.values,
                   formFour.values
                 );
-                setSectionFourVisible(false);
-                document.body.style.background = "#5fa3ac";
-                setResultsVisible(true);
+                setTimeout(() => {
+                  setResultsVisible(true);
+                }, 1000);
               }}
             ></IconCookie>
             <br></br>
