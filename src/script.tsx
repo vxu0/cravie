@@ -1,25 +1,17 @@
-import "./src/data/category-weights.json";
-import "./src/data/foods-savory.json";
-import "./src/data/foods-sweet.json";
-import "./src/data/savory-categorized.json";
-import "./src/data/sweet-categorized.json";
-
 async function loadFoods(userSweetSavory: string) {
-  const response = await fetch(`./src/data/foods-${userSweetSavory}.json`);
+  const response = await fetch(`foods-${userSweetSavory}.json`);
   const foods = await response.json();
   return foods;
 }
 
 async function loadCategorizedFoods(userSweetSavory: string) {
-  const response = await fetch(
-    `./src/data/${userSweetSavory}-categorized.json`
-  );
+  const response = await fetch(`${userSweetSavory}-categorized.json`);
   const foods = await response.json();
   return foods;
 }
 
 async function loadCategoryWeights() {
-  const response = await fetch("./src/data/category-weights.json");
+  const response = await fetch("category-weights.json");
   const weights = await response.json();
   return weights;
 }
