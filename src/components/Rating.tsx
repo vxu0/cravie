@@ -1,12 +1,4 @@
-import {
-  Rating,
-  useMantineTheme,
-  Center,
-  rem,
-  Input,
-  CheckIcon,
-  ThemeIcon,
-} from "@mantine/core";
+import { Rating, useMantineTheme, Center, rem } from "@mantine/core";
 import {
   IconCarrot,
   IconSalad,
@@ -62,7 +54,6 @@ const OptionRating = ({ name, form }: Props) => {
   const getFullIcon = (value: number) => {
     const defaultProps = { size: rem(24) };
     const theme = useMantineTheme();
-    // selectedVal = value;
 
     switch (value) {
       case 1:
@@ -120,7 +111,6 @@ const OptionRating = ({ name, form }: Props) => {
     }
   };
 
-  // console.log(selectedVal);
   return (
     <Center>
       <label>healthy&nbsp;</label>

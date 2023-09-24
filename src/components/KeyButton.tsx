@@ -1,16 +1,6 @@
-import {
-  MantineProvider,
-  UnstyledButton,
-  Checkbox,
-  Text,
-  createStyles,
-  rem,
-  Center,
-  Transition,
-} from "@mantine/core";
+import { UnstyledButton, createStyles } from "@mantine/core";
 import { useUncontrolled } from "@mantine/hooks";
-import { IconKey, IconBulb } from "@tabler/icons-react";
-import { useState } from "react";
+import { IconBulb } from "@tabler/icons-react";
 
 interface Props {
   name: string;
@@ -18,25 +8,11 @@ interface Props {
   form: any;
 }
 
-// const KeyButton = ({ label }: Props) => {
-//   return (
-//     <>
-//       <button>
-//         <IconKey></IconKey>
-//       </button>
-//       <label color="black">{label}</label>
-//     </>
-//   );
-// };
-
-// export default KeyButton;
-
 const useStyles = createStyles((theme, { checked }: { checked: boolean }) => ({
   button: {
     display: "flex",
     alignItems: "center",
     transition: "color 300ms ease",
-    // padding: theme.spacing.xs,
     color: checked ? theme.colors.yellow[5] : theme.colors.gray,
     fill: checked ? theme.colors.yellow[4] : theme.colors.gray,
     label: {
@@ -63,8 +39,6 @@ export function Button({
   ...others
 }: ButtonProps &
   Omit<React.ComponentPropsWithoutRef<"button">, keyof ButtonProps>) {
-  //   const { classes, cx } = useStyles();
-
   const [value, handleChange] = useUncontrolled({
     value: checked,
     defaultValue: defaultChecked,
@@ -72,28 +46,20 @@ export function Button({
     onChange,
   });
 
-  // const [keyFilled, setKeyFilled] = useState(false);
-
   const { classes, cx } = useStyles({ checked: value });
 
   return (
     <>
-      {/* <Transition transition="scale" duration={400} timingFunction="ease"> */}
       <UnstyledButton
         {...others}
         onClick={() => {
           handleChange(!value);
-          // setKeyFilled(!value);
         }}
         className={cx(classes.button, className)}
       >
-        <IconBulb
-          // fill={keyFilled ? "theme.colors.yellow[2]" : "theme.colors.yellow[2]"}
-          size={40}
-        ></IconBulb>
+        <IconBulb size={40}></IconBulb>
         <label>{label}</label>
       </UnstyledButton>
-      {/* </Transition> */}
     </>
   );
 }

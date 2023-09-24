@@ -3,8 +3,6 @@ import OptionGroup from "./components/OptionGroup";
 import Toggle from "./components/Toggle";
 import CheckboxGroup from "./components/CheckboxGroup";
 import Rating from "./components/Rating";
-// import cookieImage from "./images/cookie.png";
-import { Center } from "@mantine/core";
 import { IconCookie } from "@tabler/icons-react";
 import "./App.css";
 import KeyButton from "./components/KeyButton";
