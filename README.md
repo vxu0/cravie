@@ -1,6 +1,6 @@
 # cravie
 
-Access the web application here: https://cookie-spin.netlify.app/
+Access the web application here: https://cravie.netlify.app/
 
 Save yourself some brain work when you're deciding what to eat! Plus expand your palate by trying some new cuisines (if you wish)!
 
