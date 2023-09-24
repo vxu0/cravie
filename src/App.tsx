@@ -390,19 +390,12 @@ function App() {
               fill="orange"
               className="cookie"
               onClick={async () => {
-                let { resultOne, resultTwo, resultThree } =
-                  await getRankedFoods(
-                    formOne.values,
-                    chooseFormTwo().values,
-                    formThree.values,
-                    formFour.values
-                  );
-                document.getElementById("results")?.appendChild(resultOne);
-                document.getElementById("resultOne")?.appendChild(resultOne);
-                document.getElementById("resultTwo")?.appendChild(resultTwo);
-                document
-                  .getElementById("resultThree")
-                  ?.appendChild(resultThree);
+                getRankedFoods(
+                  formOne.values,
+                  chooseFormTwo().values,
+                  formThree.values,
+                  formFour.values
+                );
                 setSectionFourVisible(false);
                 document.body.style.background = "#5fa3ac";
                 setResultsVisible(true);

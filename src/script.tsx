@@ -51,13 +51,12 @@ async function getRankedFoods(
   resultThree.href = `https://www.google.com/search?q=${rankedFoods[2]}`;
   resultThree.target = "_blank";
 
-  // document.getElementById("results")?.appendChild(resultOne);
-  // document.getElementById("resultOne")?.appendChild(resultOne);
-  // document.getElementById("resultTwo")?.appendChild(resultTwo);
-  // document.getElementById("resultThree")?.appendChild(resultThree);
+  document.getElementById("resultOne")?.appendChild(resultOne);
+  document.getElementById("resultTwo")?.appendChild(resultTwo);
+  document.getElementById("resultThree")?.appendChild(resultThree);
 
-  // return rankedFoods;
-  return { resultOne, resultTwo, resultThree };
+  return rankedFoods;
+  // return { resultOne, resultTwo, resultThree };
 }
 
 async function calculateScores(
