@@ -1,11 +1,6 @@
-// import { useState } from "react";
-
-import { Fragment } from "react";
-
 interface Props {
   category: string;
   options: string[];
-  //   onSelectItem: (item: string) => void;
 }
 
 function Radio({ category, options }: Props) {
