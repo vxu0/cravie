@@ -395,10 +395,11 @@ function App() {
                   chooseFormTwo().values,
                   formThree.values,
                   formFour.values
-                );
-                setSectionFourVisible(false);
-                document.body.style.background = "#5fa3ac";
-                setResultsVisible(true);
+                ).then((_) => {
+                  setSectionFourVisible(false);
+                  document.body.style.background = "#5fa3ac";
+                  setResultsVisible(true);
+                });
               }}
             ></IconCookie>
             <br></br>
