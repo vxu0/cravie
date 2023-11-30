@@ -8,7 +8,8 @@ import "./App.css";
 import KeyButton from "./components/KeyButton";
 import { useForm } from "@mantine/form";
 import { getRankedFoods } from "./script.tsx";
-import ConfettiExplosion, { ConfettiProps } from "react-confetti-explosion";
+import Results from "./components/Results.tsx";
+
 // https://www.gcu.edu/blog/gcu-experience/most-popular-cuisines-us
 // chat GPT
 // Give me a list of popular authentic dishes belonging to each of the following cuisines: American, Italian, Mexican, Latin American, Caribbean, East Asian, Southeast Asian, Indian, Mediterranean, African. I would like around eight to ten dishes for each cuisine, except for the American category, which can have more than eight to ten dishes. The dishes should be mostly main dishes, diverse in flavor and texture, as well as a few desserts and snacks. Please specify whether each dish is a main, dessert, or snack.
@@ -20,14 +21,9 @@ function App() {
   const [sectionThreeVisible, setSectionThreeVisible] = useState(false);
   const [sectionFourVisible, setSectionFourVisible] = useState(false);
   const [resultsVisible, setResultsVisible] = useState(false);
-
-  const largeProps: ConfettiProps = {
-    force: 0.8,
-    duration: 3000,
-    particleCount: 300,
-    width: 1600,
-    colors: ["#041E43", "#1471BF", "#5BB4DC", "#FC027B", "#66D805"],
-  };
+  const [resultOne, setResultOne] = useState("");
+  const [resultTwo, setResultTwo] = useState("");
+  const [resultThree, setResultThree] = useState("");
 
   const formOne = useForm({
     initialValues: {
@@ -115,9 +111,10 @@ function App() {
     return formTwoSavory;
   }
 
-  let resultOne = null;
-  let resultTwo = null;
-  let resultThree = null;
+  // let resultOne = null;
+  // let resultTwo = null;
+  // let resultThree = null;
+  // let topThree = [null, null, null];
 
   return (
     <>
@@ -401,8 +398,16 @@ function App() {
                   chooseFormTwo().values,
                   formThree.values,
                   formFour.values
-                );
-                setResultsVisible(true);
+                )
+                  .then((res) => {
+                    console.log("in THEN");
+                    setResultOne(res[0]);
+                    setResultTwo(res[1]);
+                    setResultThree(res[2]);
+                    console.log("results:", resultOne, resultTwo, resultThree);
+                    setResultsVisible(true);
+                  })
+                  .catch((err) => console.log("results error:", err));
               }}
             ></IconCookie>
             <br></br>
@@ -414,21 +419,11 @@ function App() {
         ) : null}
         {resultsVisible && (
           <>
-            <h1>
-              <i>result:</i>
-            </h1>
-            <br />
-            <h1>
-              <a id="resultOne">{resultOne}</a>
-            </h1>
-            {resultsVisible && <ConfettiExplosion {...largeProps} />}
-            <br />
-            <h2>
-              <i>
-                alternatives: {<i id="resultTwo">{resultTwo}</i>},{" "}
-                {<i id="resultThree">{resultThree}</i>}
-              </i>
-            </h2>
+            <Results
+              resultOne={resultOne ? resultOne : "..."}
+              resultTwo={resultTwo ? resultTwo : "..."}
+              resultThree={resultThree ? resultThree : "..."}
+            />
             <br></br>
             <br></br>
             <br></br>

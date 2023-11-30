@@ -1,4 +1,4 @@
-import { useForceUpdate } from "@mantine/hooks";
+// import { useForceUpdate } from "@mantine/hooks";
 
 async function loadFoods(userSweetSavory: string) {
   const response = await fetch(`foods-${userSweetSavory}.json`);
@@ -35,30 +35,30 @@ async function getRankedFoods(
   let rankedFoods = results.map(([food, _]) => food);
   console.log("ranked:", rankedFoods);
 
-  let resultOne = document.createElement("a");
-  let resultOneText = document.createTextNode(rankedFoods[0]);
-  resultOne.appendChild(resultOneText);
-  resultOne.href = `https://www.google.com/search?q=${rankedFoods[0]}`;
-  resultOne.target = "_blank"; // open in new tab
+  // let resultOne = document.createElement("a");
+  // let resultOneText = document.createTextNode(rankedFoods[0]);
+  // resultOne.appendChild(resultOneText);
+  // resultOne.href = `https://www.google.com/search?q=${rankedFoods[0]}`;
+  // resultOne.target = "_blank"; // open in new tab
 
-  let resultTwo = document.createElement("a");
-  let resultTwoText = document.createTextNode(rankedFoods[1]);
-  resultTwo.appendChild(resultTwoText);
-  resultTwo.href = `https://www.google.com/search?q=${rankedFoods[1]}`;
-  resultTwo.target = "_blank";
+  // let resultTwo = document.createElement("a");
+  // let resultTwoText = document.createTextNode(rankedFoods[1]);
+  // resultTwo.appendChild(resultTwoText);
+  // resultTwo.href = `https://www.google.com/search?q=${rankedFoods[1]}`;
+  // resultTwo.target = "_blank";
 
-  let resultThree = document.createElement("a");
-  let resultThreeText = document.createTextNode(rankedFoods[2]);
-  resultThree.appendChild(resultThreeText);
-  resultThree.href = `https://www.google.com/search?q=${rankedFoods[2]}`;
-  resultThree.target = "_blank";
+  // let resultThree = document.createElement("a");
+  // let resultThreeText = document.createTextNode(rankedFoods[2]);
+  // resultThree.appendChild(resultThreeText);
+  // resultThree.href = `https://www.google.com/search?q=${rankedFoods[2]}`;
+  // resultThree.target = "_blank";
 
-  document.getElementById("resultOne")?.appendChild(resultOne);
-  document.getElementById("resultTwo")?.appendChild(resultTwo);
-  document.getElementById("resultThree")?.appendChild(resultThree);
+  // document.getElementById("resultOne")?.appendChild(resultOne);
+  // document.getElementById("resultTwo")?.appendChild(resultTwo);
+  // document.getElementById("resultThree")?.appendChild(resultThree);
 
-  useForceUpdate();
-  return [resultOne, resultTwo, resultThree];
+  // useForceUpdate();
+  return [rankedFoods[0], rankedFoods[1], rankedFoods[2]];
 }
 
 async function calculateScores(
