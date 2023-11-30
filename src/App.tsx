@@ -9,7 +9,7 @@ import KeyButton from "./components/KeyButton";
 import { useForm } from "@mantine/form";
 import { getRankedFoods } from "./script.tsx";
 import Results from "./components/Results.tsx";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 // https://www.gcu.edu/blog/gcu-experience/most-popular-cuisines-us
 // chat GPT
