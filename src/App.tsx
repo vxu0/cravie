@@ -9,6 +9,7 @@ import KeyButton from "./components/KeyButton";
 import { useForm } from "@mantine/form";
 import { getRankedFoods } from "./script.tsx";
 import Results from "./components/Results.tsx";
+import { motion, AnimatePresence } from "framer-motion";
 
 // https://www.gcu.edu/blog/gcu-experience/most-popular-cuisines-us
 // chat GPT
@@ -130,295 +131,341 @@ function App() {
       {/* {"sweetSavory":"sweet","meal":"snack","lightHeavy":"light","healthyLevel":0} */}
 
       <div className="card">
-        {sectionOneVisible ? (
-          <form
-            onSubmit={formOne.onSubmit((values) => {
-              console.log(values);
-              nextPage();
-            })}
+        {sectionOneVisible && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
           >
-            <div className="question-category">
-              <h3>The Basics</h3>
-              <i>What are you looking for?</i>
-            </div>
+            <form
+              onSubmit={formOne.onSubmit((values) => {
+                console.log(values);
+                nextPage();
+              })}
+            >
+              <div className="question-category">
+                <h3>The Basics</h3>
+                <i>What are you looking for?</i>
+              </div>
 
-            <br></br>
+              <br></br>
 
-            <OptionGroup
-              name="sweetSavory"
-              options={["sweet", "savory"]}
-              form={formOne}
-            />
-            <br />
-            {/* <OptionGroup
+              <OptionGroup
+                name="sweetSavory"
+                options={["sweet", "savory"]}
+                form={formOne}
+              />
+              <br />
+              {/* <OptionGroup
               name="meal"
               options={["snack", "main", "dessert"]}
               form={formOne}
             /> */}
-            <OptionGroup
-              name="lightHeavy"
-              options={["light", "middle", "heavy"]}
-              form={formOne}
-            />
+              <OptionGroup
+                name="lightHeavy"
+                options={["light", "middle", "heavy"]}
+                form={formOne}
+              />
 
-            <Rating name="healthyLevel" form={formOne} />
-            <br></br>
+              <Rating name="healthyLevel" form={formOne} />
+              <br></br>
 
-            <button
-              className="next"
-              type="submit"
-              disabled={!formOne.isValid()}
+              <button
+                className="next"
+                type="submit"
+                disabled={!formOne.isValid()}
+              >
+                Next
+              </button>
+            </form>
+          </motion.div>
+        )}
+
+        {sectionTwoSavoryVisible && (
+          <motion.div
+            initial={{ x: 300, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: -300, opacity: 0 }}
+          >
+            <form
+              onSubmit={formTwoSavory.onSubmit((values) => {
+                console.log(values);
+                nextPage();
+              })}
             >
-              Next
-            </button>
-          </form>
-        ) : null}
-
-        {sectionTwoSavoryVisible ? (
-          <form
-            onSubmit={formTwoSavory.onSubmit((values) => {
-              console.log(values);
-              nextPage();
-            })}
-          >
-            <div className="question-category">
-              <h3>Keywords</h3>
-              <i>Flavors? Textures? Feelings? Click 'em!</i>
-            </div>
-            <br></br>
-            <div className="row">
-              <div className="column">&nbsp;</div>
-              <div className="column">
-                <KeyButton
-                  name="spicy"
-                  label="spicy"
-                  form={formTwoSavory}
-                ></KeyButton>
-                <KeyButton
-                  name="fried"
-                  label="fried"
-                  form={formTwoSavory}
-                ></KeyButton>
-                <KeyButton
-                  name="carbs"
-                  label="carbs"
-                  form={formTwoSavory}
-                ></KeyButton>
-                <KeyButton
-                  name="cheesy"
-                  label="cheesy"
-                  form={formTwoSavory}
-                ></KeyButton>
-                <KeyButton
-                  name="meaty"
-                  label="meaty"
-                  form={formTwoSavory}
-                ></KeyButton>
-                <KeyButton
-                  name="crunchy"
-                  label="crunchy"
-                  form={formTwoSavory}
-                ></KeyButton>
-                <KeyButton
-                  name="comforting"
-                  label="comforting"
-                  form={formTwoSavory}
-                ></KeyButton>
-                <KeyButton
-                  name="refreshing"
-                  label="refreshing"
-                  form={formTwoSavory}
-                ></KeyButton>
+              <div className="question-category">
+                <h3>Keywords</h3>
+                <i>Flavors? Textures? Feelings? Click 'em!</i>
               </div>
-            </div>
-            {/* {JSON.stringify(formTwoSavory.values)} */}
-            <br></br>
-            <br></br>
-            <button className="next" type="submit">
-              Next
-            </button>
-          </form>
-        ) : null}
-
-        {sectionTwoSweetVisible ? (
-          <form
-            onSubmit={formTwoSweet.onSubmit((values) => {
-              console.log(values);
-              nextPage();
-            })}
-          >
-            <div className="question-category">
-              <h3>Keywords</h3>
-              <i>Ingredients? Flavors? Textures? Click 'em!</i>
-            </div>
-            <br></br>
-            <div className="row">
-              <div className="column">&nbsp;</div>
-              <div className="column">
-                <KeyButton
-                  name="warm"
-                  label="warm"
-                  form={formTwoSweet}
-                ></KeyButton>
-                <KeyButton
-                  name="fruity"
-                  label="fruity"
-                  form={formTwoSweet}
-                ></KeyButton>
-                <KeyButton
-                  name="chocolatey"
-                  label="chocolatey"
-                  form={formTwoSweet}
-                ></KeyButton>
-                <KeyButton
-                  name="creamy"
-                  label="creamy"
-                  form={formTwoSweet}
-                ></KeyButton>
-                <KeyButton
-                  name="baked"
-                  label="baked"
-                  form={formTwoSweet}
-                ></KeyButton>
-                <KeyButton
-                  name="nutty"
-                  label="nutty"
-                  form={formTwoSweet}
-                ></KeyButton>
+              <br></br>
+              <div className="row">
+                <div className="column">&nbsp;</div>
+                <div className="column">
+                  <KeyButton
+                    name="spicy"
+                    label="spicy"
+                    form={formTwoSavory}
+                  ></KeyButton>
+                  <KeyButton
+                    name="fried"
+                    label="fried"
+                    form={formTwoSavory}
+                  ></KeyButton>
+                  <KeyButton
+                    name="carbs"
+                    label="carbs"
+                    form={formTwoSavory}
+                  ></KeyButton>
+                  <KeyButton
+                    name="cheesy"
+                    label="cheesy"
+                    form={formTwoSavory}
+                  ></KeyButton>
+                  <KeyButton
+                    name="meaty"
+                    label="meaty"
+                    form={formTwoSavory}
+                  ></KeyButton>
+                  <KeyButton
+                    name="crunchy"
+                    label="crunchy"
+                    form={formTwoSavory}
+                  ></KeyButton>
+                  <KeyButton
+                    name="comforting"
+                    label="comforting"
+                    form={formTwoSavory}
+                  ></KeyButton>
+                  <KeyButton
+                    name="refreshing"
+                    label="refreshing"
+                    form={formTwoSavory}
+                  ></KeyButton>
+                </div>
               </div>
-            </div>
-            <br></br>
-            <br></br>
-            <button className="next" type="submit">
-              Next
-            </button>
-          </form>
-        ) : null}
+              {/* {JSON.stringify(formTwoSavory.values)} */}
+              <br></br>
+              <br></br>
+              <button className="next" type="submit">
+                Next
+              </button>
+            </form>
+          </motion.div>
+        )}
 
-        {sectionThreeVisible ? (
-          <form
-            onSubmit={formThree.onSubmit((values) => {
-              console.log(values);
-              nextPage();
-            })}
+        {sectionTwoSweetVisible && (
+          <motion.div
+            initial={{ x: 300, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: -300, opacity: 0 }}
           >
-            <div className="question-category">
-              <h3>Cuisines</h3>
-              <i>Select any cuisines you're down with</i>
-            </div>
-
-            <br></br>
-            <CheckboxGroup
-              form={formThree}
-              options={[
-                { title: "American", name: "american", image: "🍔" },
-                { title: "Italian", name: "italian", image: "🍝" },
-                { title: "Mexican", name: "mexican", image: "🌮" },
-                { title: "Latin American", name: "latinAmerican", image: "🫔" },
-                { title: "Caribbean", name: "caribbean", image: "🍗" },
-                { title: "East Asian", name: "eastAsian", image: "🍣" },
-                {
-                  title: "Southeast Asian",
-                  name: "southeastAsian",
-                  image: "🍲",
-                },
-                { title: "Indian", name: "indian", image: "🍛" },
-                { title: "Mediterranean", name: "mediterranean", image: "🥙" },
-                { title: "African", name: "african", image: "🥘" },
-                // { title: "All of the above", image: "🌈" },
-                // { title: "American", image: "🍔" },
-                // { title: "Chinese", image: "🥡" },
-                // { title: "Cuban", image: "🍛" },
-                // { title: "Greek", image: "🥙" },
-                // { title: "Indian", image: "🍛" },
-                // { title: "Italian", image: "🍝" },
-                // { title: "Japanese", image: "🍣" },
-                // { title: "Korean", image: "🍲" },
-                // { title: "Mexican", image: "🌮" },
-                // { title: "Thai", image: "🍲" },
-                // { title: "Vietnamese", image: "🍜" },
-              ]}
-              //   [
-              //     "american",
-              //     "chinese",
-              //     "cuban",
-              //     "greek",
-              //     "indian",
-              //     "italian",
-              //     "japanese",
-              //     "korean",
-              //     "mexican",
-              //     "thai",
-              //     "vietnamese"
-              // ]
-            />
-            <br></br>
-            <button
-              className="next"
-              type="submit"
-              // disabled={!formThree.isValid()}
+            <form
+              onSubmit={formTwoSweet.onSubmit((values) => {
+                console.log(values);
+                nextPage();
+              })}
             >
-              Next
-            </button>
-          </form>
-        ) : null}
-
-        {sectionFourVisible ? (
-          <form
-            onSubmit={formFour.onSubmit((values) => {
-              console.log(values);
-              nextPage();
-            })}
-          >
-            <div className="question-category">
-              <h3>Dietary Restrictions</h3>
-              <i>No moo, no worries!</i>
-            </div>
-            <br></br>
-            <div className="row">
-              <div className="column">&nbsp;</div>
-              <div className="column-toggle">
-                <Toggle name="veg" label="Vegetarian/Vegan" form={formFour} />
-                <Toggle name="gf" label="Gluten-free" form={formFour} />
-                <Toggle name="df" label="Dairy-free" form={formFour} />
+              <div className="question-category">
+                <h3>Keywords</h3>
+                <i>Ingredients? Flavors? Textures? Click 'em!</i>
               </div>
-            </div>
-            <br></br>
-            <br></br>
-            <IconCookie
-              size={96}
-              color="orange"
-              fill="orange"
-              className="cookie"
-              onClick={() => {
-                setSectionFourVisible(false);
-                document.body.style.background = "#5fa3ac";
-                getRankedFoods(
-                  formOne.values,
-                  chooseFormTwo().values,
-                  formThree.values,
-                  formFour.values
-                )
-                  .then((res) => {
-                    console.log("in THEN");
-                    setResultOne(res[0]);
-                    setResultTwo(res[1]);
-                    setResultThree(res[2]);
-                    console.log("results:", resultOne, resultTwo, resultThree);
-                    setResultsVisible(true);
-                  })
-                  .catch((err) => console.log("results error:", err));
-              }}
-            ></IconCookie>
-            <br></br>
-            <h3 className="clickme">I'm ready!</h3>
-            <br></br>
-            <br></br>
-            <br></br>
-          </form>
-        ) : null}
+              <br></br>
+              <div className="row">
+                <div className="column">&nbsp;</div>
+                <div className="column">
+                  <KeyButton
+                    name="warm"
+                    label="warm"
+                    form={formTwoSweet}
+                  ></KeyButton>
+                  <KeyButton
+                    name="fruity"
+                    label="fruity"
+                    form={formTwoSweet}
+                  ></KeyButton>
+                  <KeyButton
+                    name="chocolatey"
+                    label="chocolatey"
+                    form={formTwoSweet}
+                  ></KeyButton>
+                  <KeyButton
+                    name="creamy"
+                    label="creamy"
+                    form={formTwoSweet}
+                  ></KeyButton>
+                  <KeyButton
+                    name="baked"
+                    label="baked"
+                    form={formTwoSweet}
+                  ></KeyButton>
+                  <KeyButton
+                    name="nutty"
+                    label="nutty"
+                    form={formTwoSweet}
+                  ></KeyButton>
+                </div>
+              </div>
+              <br></br>
+              <br></br>
+              <button className="next" type="submit">
+                Next
+              </button>
+            </form>
+          </motion.div>
+        )}
+
+        {sectionThreeVisible && (
+          <motion.div
+            initial={{ x: 300, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: -300, opacity: 0 }}
+          >
+            <form
+              onSubmit={formThree.onSubmit((values) => {
+                console.log(values);
+                nextPage();
+              })}
+            >
+              <div className="question-category">
+                <h3>Cuisines</h3>
+                <i>Select any cuisines you're down with</i>
+              </div>
+
+              <br></br>
+              <CheckboxGroup
+                form={formThree}
+                options={[
+                  { title: "American", name: "american", image: "🍔" },
+                  { title: "Italian", name: "italian", image: "🍝" },
+                  { title: "Mexican", name: "mexican", image: "🌮" },
+                  {
+                    title: "Latin American",
+                    name: "latinAmerican",
+                    image: "🫔",
+                  },
+                  { title: "Caribbean", name: "caribbean", image: "🍗" },
+                  { title: "East Asian", name: "eastAsian", image: "🍣" },
+                  {
+                    title: "Southeast Asian",
+                    name: "southeastAsian",
+                    image: "🍲",
+                  },
+                  { title: "Indian", name: "indian", image: "🍛" },
+                  {
+                    title: "Mediterranean",
+                    name: "mediterranean",
+                    image: "🥙",
+                  },
+                  { title: "African", name: "african", image: "🥘" },
+                  // { title: "All of the above", image: "🌈" },
+                  // { title: "American", image: "🍔" },
+                  // { title: "Chinese", image: "🥡" },
+                  // { title: "Cuban", image: "🍛" },
+                  // { title: "Greek", image: "🥙" },
+                  // { title: "Indian", image: "🍛" },
+                  // { title: "Italian", image: "🍝" },
+                  // { title: "Japanese", image: "🍣" },
+                  // { title: "Korean", image: "🍲" },
+                  // { title: "Mexican", image: "🌮" },
+                  // { title: "Thai", image: "🍲" },
+                  // { title: "Vietnamese", image: "🍜" },
+                ]}
+                //   [
+                //     "american",
+                //     "chinese",
+                //     "cuban",
+                //     "greek",
+                //     "indian",
+                //     "italian",
+                //     "japanese",
+                //     "korean",
+                //     "mexican",
+                //     "thai",
+                //     "vietnamese"
+                // ]
+              />
+              <br></br>
+              <button
+                className="next"
+                type="submit"
+                // disabled={!formThree.isValid()}
+              >
+                Next
+              </button>
+            </form>
+          </motion.div>
+        )}
+
+        {sectionFourVisible && (
+          <motion.div
+            initial={{ x: 300, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <form
+              onSubmit={formFour.onSubmit((values) => {
+                console.log(values);
+                nextPage();
+              })}
+            >
+              <div className="question-category">
+                <h3>Dietary Restrictions</h3>
+                <i>No moo, no worries!</i>
+              </div>
+              <br></br>
+              <div className="row">
+                <div className="column">&nbsp;</div>
+                <div className="column-toggle">
+                  <Toggle name="veg" label="Vegetarian/Vegan" form={formFour} />
+                  <Toggle name="gf" label="Gluten-free" form={formFour} />
+                  <Toggle name="df" label="Dairy-free" form={formFour} />
+                </div>
+              </div>
+              <br></br>
+              <br></br>
+              <IconCookie
+                size={96}
+                color="orange"
+                fill="orange"
+                className="cookie"
+                onClick={() => {
+                  setSectionFourVisible(false);
+                  document.body.style.background = "#5fa3ac";
+                  getRankedFoods(
+                    formOne.values,
+                    chooseFormTwo().values,
+                    formThree.values,
+                    formFour.values
+                  )
+                    .then((res) => {
+                      setResultOne(res[0]);
+                      setResultTwo(res[1]);
+                      setResultThree(res[2]);
+                      console.log(
+                        "results:",
+                        resultOne,
+                        resultTwo,
+                        resultThree
+                      );
+                      setResultsVisible(true);
+                    })
+                    .catch((err) => console.log("results error:", err));
+                }}
+              ></IconCookie>
+              <br></br>
+              <h3 className="clickme">I'm ready!</h3>
+              <br></br>
+              <br></br>
+              <br></br>
+            </form>
+          </motion.div>
+        )}
         {resultsVisible && (
-          <>
+          <motion.div
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0, opacity: 0 }}
+          >
             <Results
               resultOne={resultOne ? resultOne : "..."}
               resultTwo={resultTwo ? resultTwo : "..."}
@@ -430,7 +477,7 @@ function App() {
             <button className="next" onClick={() => window.location.reload()}>
               Start Over
             </button>
-          </>
+          </motion.div>
         )}
       </div>
     </>
