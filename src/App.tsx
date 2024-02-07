@@ -16,20 +16,18 @@ import { motion } from "framer-motion";
 // Give me a list of popular authentic dishes belonging to each of the following cuisines: American, Italian, Mexican, Latin American, Caribbean, East Asian, Southeast Asian, Indian, Mediterranean, African. I would like around eight to ten dishes for each cuisine, except for the American category, which can have more than eight to ten dishes. The dishes should be mostly main dishes, diverse in flavor and texture, as well as a few desserts and snacks. Please specify whether each dish is a main, dessert, or snack.
 
 function App() {
-  const [sectionOneVisible, setSectionOneVisible] = useState(true);
-  const [sectionTwoSweetVisible, setSectionTwoSweetVisible] = useState(false);
-  const [sectionTwoSavoryVisible, setSectionTwoSavoryVisible] = useState(false);
-  const [sectionThreeVisible, setSectionThreeVisible] = useState(false);
-  const [sectionFourVisible, setSectionFourVisible] = useState(false);
-  const [resultsVisible, setResultsVisible] = useState(false);
-  const [resultOne, setResultOne] = useState("");
-  const [resultTwo, setResultTwo] = useState("");
-  const [resultThree, setResultThree] = useState("");
+  const [section, setSection] = useState(0);
+  // 0: basics
+  // 1: savory
+  // 2: sweet
+  // 3: cuisines
+  // 4: restrictions
+  // 5: results
+  const [results, setResults] = useState([""]);
 
   const formOne = useForm({
     initialValues: {
       sweetSavory: "sweet",
-      // meal: "snack",
       lightHeavy: "light",
       healthyLevel: 0,
     },
@@ -87,21 +85,14 @@ function App() {
   });
 
   const nextPage = () => {
-    if (sectionOneVisible && formOne.values.sweetSavory == "savory") {
-      setSectionOneVisible(false);
-      setSectionTwoSavoryVisible(true);
-    } else if (sectionOneVisible) {
-      setSectionOneVisible(false);
-      setSectionTwoSweetVisible(true);
-    } else if (sectionTwoSavoryVisible) {
-      setSectionTwoSavoryVisible(false);
-      setSectionThreeVisible(true);
-    } else if (sectionTwoSweetVisible) {
-      setSectionTwoSweetVisible(false);
-      setSectionThreeVisible(true);
+    if (section === 0 && formOne.values.sweetSavory == "savory") {
+      setSection(1);
+    } else if (section === 0) {
+      setSection(2);
+    } else if (section === 1 || section === 2) {
+      setSection(3);
     } else {
-      setSectionThreeVisible(false);
-      setSectionFourVisible(true);
+      setSection(4);
     }
   };
 
@@ -112,26 +103,17 @@ function App() {
     return formTwoSavory;
   }
 
-  // let resultOne = null;
-  // let resultTwo = null;
-  // let resultThree = null;
-  // let topThree = [null, null, null];
-
   return (
     <>
-      <h1 hidden={resultsVisible}>cravie</h1>
-      <p hidden={!sectionOneVisible}>
+      <h1 hidden={section === 5}>cravie</h1>
+      <p hidden={section !== 0}>
         Need help deciding what to eat? Select your preferences below and hit
         the cookie to generate suggestions!
       </p>
-      <br hidden={sectionOneVisible} />
-
-      {/* <p>{typeof formFour.values.df}</p>
-      <p>{JSON.stringify(formFour.values)}</p> */}
-      {/* {"sweetSavory":"sweet","meal":"snack","lightHeavy":"light","healthyLevel":0} */}
+      <br hidden={section === 0} />
 
       <div className="card">
-        {sectionOneVisible && (
+        {section === 0 && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -156,11 +138,7 @@ function App() {
                 form={formOne}
               />
               <br />
-              {/* <OptionGroup
-              name="meal"
-              options={["snack", "main", "dessert"]}
-              form={formOne}
-            /> */}
+
               <OptionGroup
                 name="lightHeavy"
                 options={["light", "middle", "heavy"]}
@@ -181,7 +159,7 @@ function App() {
           </motion.div>
         )}
 
-        {sectionTwoSavoryVisible && (
+        {section === 1 && (
           <motion.div
             initial={{ x: 300, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
@@ -243,7 +221,6 @@ function App() {
                   ></KeyButton>
                 </div>
               </div>
-              {/* {JSON.stringify(formTwoSavory.values)} */}
               <br></br>
               <br></br>
               <button className="next" type="submit">
@@ -253,7 +230,7 @@ function App() {
           </motion.div>
         )}
 
-        {sectionTwoSweetVisible && (
+        {section === 2 && (
           <motion.div
             initial={{ x: 300, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
@@ -314,7 +291,7 @@ function App() {
           </motion.div>
         )}
 
-        {sectionThreeVisible && (
+        {section === 3 && (
           <motion.div
             initial={{ x: 300, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
@@ -370,33 +347,18 @@ function App() {
                   // { title: "Thai", image: "🍲" },
                   // { title: "Vietnamese", image: "🍜" },
                 ]}
-                //   [
-                //     "american",
-                //     "chinese",
-                //     "cuban",
-                //     "greek",
-                //     "indian",
-                //     "italian",
-                //     "japanese",
-                //     "korean",
-                //     "mexican",
-                //     "thai",
-                //     "vietnamese"
-                // ]
               />
               <br></br>
-              <button
-                className="next"
-                type="submit"
-                // disabled={!formThree.isValid()}
-              >
+              <br></br>
+              <br></br>
+              <button className="next" type="submit">
                 Next
               </button>
             </form>
           </motion.div>
         )}
 
-        {sectionFourVisible && (
+        {section === 4 && (
           <motion.div
             initial={{ x: 300, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
@@ -429,7 +391,7 @@ function App() {
                 fill="orange"
                 className="cookie"
                 onClick={() => {
-                  setSectionFourVisible(false);
+                  setSection(-1);
                   document.body.style.background = "#5fa3ac";
                   getRankedFoods(
                     formOne.values,
@@ -438,16 +400,9 @@ function App() {
                     formFour.values
                   )
                     .then((res) => {
-                      setResultOne(res[0]);
-                      setResultTwo(res[1]);
-                      setResultThree(res[2]);
-                      console.log(
-                        "results:",
-                        resultOne,
-                        resultTwo,
-                        resultThree
-                      );
-                      setResultsVisible(true);
+                      setResults(res);
+                      console.log("results:", results);
+                      setSection(5);
                     })
                     .catch((err) => console.log("results error:", err));
                 }}
@@ -460,16 +415,16 @@ function App() {
             </form>
           </motion.div>
         )}
-        {resultsVisible && (
+        {section === 5 && (
           <motion.div
             initial={{ scale: 0, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0, opacity: 0 }}
           >
             <Results
-              resultOne={resultOne ? resultOne : "..."}
-              resultTwo={resultTwo ? resultTwo : "..."}
-              resultThree={resultThree ? resultThree : "..."}
+              resultOne={results.length == 3 ? results[0] : "..."}
+              resultTwo={results.length == 3 ? results[1] : "..."}
+              resultThree={results.length == 3 ? results[2] : "..."}
             />
             <br></br>
             <br></br>

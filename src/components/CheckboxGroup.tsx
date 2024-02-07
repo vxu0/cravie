@@ -9,7 +9,7 @@ import {
   rem,
 } from "@mantine/core";
 import { useUncontrolled } from "@mantine/hooks";
-// import icons from "./images/flags";
+// import { useState } from "react";
 
 interface Props {
   options: {
@@ -19,6 +19,10 @@ interface Props {
   }[];
   form: any;
 }
+
+// const [allSelected, setAllSelected] = useState(false);
+// let selected: string[];
+// selected = [];
 
 const useStyles = createStyles((theme, { checked }: { checked: boolean }) => ({
   button: {
@@ -84,7 +88,10 @@ export function ImageCheckbox({
     <MantineProvider theme={{ primaryColor: "yellow" }}>
       <UnstyledButton
         {...others}
-        onClick={() => handleChange(!value)}
+        onClick={() => {
+          handleChange(!value);
+          // setAllSelected(!allSelected);
+        }}
         className={cx(classes.button, className)}
       >
         <Text size="xl">{image}</Text>
@@ -106,6 +113,8 @@ export function ImageCheckbox({
   );
 }
 
+// const [selectedOptions, setSelectedOptions] = useState([]);
+
 const CheckboxGroup = ({ options, form }: Props) => {
   const items = options.map((item) => (
     <ImageCheckbox
@@ -116,17 +125,30 @@ const CheckboxGroup = ({ options, form }: Props) => {
     />
   ));
   return (
-    <Center>
-      <SimpleGrid
-        cols={4}
-        breakpoints={[
-          { maxWidth: "md", cols: 2 },
-          { maxWidth: "sm", cols: 1 },
-        ]}
-      >
-        {items}
-      </SimpleGrid>
-    </Center>
+    <>
+      <Center>
+        <SimpleGrid
+          cols={4}
+          breakpoints={[
+            { maxWidth: "md", cols: 2 },
+            { maxWidth: "sm", cols: 1 },
+          ]}
+        >
+          {items}
+        </SimpleGrid>
+
+        {/* <Checkbox onClick={() => {
+        options.map((item) => form.getInputProps(item.name))
+      }}>select all</Checkbox> */}
+        {/* <button type="button" onClick={}>
+        {!form.values ? "Select all" : "Deselect all"}
+      </button> */}
+      </Center>
+      {/* <br></br> */}
+      {/* <button type="button" onClick={() => setAllSelected(!allSelected)}>
+        {!allSelected ? "Select all" : "Deselect all"}
+      </button> */}
+    </>
   );
 };
 

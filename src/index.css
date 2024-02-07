@@ -60,6 +60,20 @@ button[class="next"]:hover {
   background-color: lightgrey;
   transform: scale(1.05);
 }
+button[class="select-all"] {
+  /* margin-left: 0.5em;
+  margin-right: 0.5em; */
+  padding: 0.4em 0.8em;
+  /* padding-right: 0.3em; */
+  background-color: transparent;
+  color: white;
+}
+button[class="select-all"]:hover {
+  color: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
+}
+button[class="select-all"]:focus {
+  color: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
+}
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
