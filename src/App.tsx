@@ -57,7 +57,16 @@ function App() {
   }
 
   function handleRestart() {
-    window.location.reload();
+    // window.location.reload();
+    setSweetOrSavory("sweet");
+    setBasics({});
+    setKeywords({});
+    setCuisines({});
+    setRestrictions({});
+    setResults(["?", "?", "?"]);
+
+    document.body.style.background = "#32575c";
+    setSection(0);
   }
 
   return (
