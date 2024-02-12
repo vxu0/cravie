@@ -60,6 +60,10 @@ button[class="next"]:hover {
   background-color: lightgrey;
   transform: scale(1.05);
 }
+button[class="cookie"] {
+  background-color: transparent;
+  /* visibility: hidden; */
+}
 button[class="select-all"] {
   /* margin-left: 0.5em;
   margin-right: 0.5em; */

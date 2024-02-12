@@ -2,9 +2,7 @@
 import ConfettiExplosion, { ConfettiProps } from "react-confetti-explosion";
 
 interface Props {
-  resultOne: string;
-  resultTwo: string;
-  resultThree: string;
+  results: string[];
   //   userBasics: any;
   //   userKeywords: any;
   //   userCuisines: any;
@@ -20,9 +18,7 @@ const Results = ({
   //   userKeywords,
   //   userCuisines,
   //   userRestrictions,
-  resultOne,
-  resultTwo,
-  resultThree,
+  results,
 }: Props) => {
   const largeProps: ConfettiProps = {
     force: 0.8,
@@ -45,10 +41,10 @@ const Results = ({
       <h1>
         <a
           id="resultOne"
-          href={`https://www.google.com/search?q=${resultOne}`}
+          href={`https://www.google.com/search?q=${results[0]}`}
           target="_blank"
         >
-          {resultOne}
+          {results[0]}
         </a>
       </h1>
       <ConfettiExplosion {...largeProps} />
@@ -60,10 +56,10 @@ const Results = ({
             <i>
               <a
                 id="resultTwo"
-                href={`https://www.google.com/search?q=${resultTwo}`}
+                href={`https://www.google.com/search?q=${results[1]}`}
                 target="_blank"
               >
-                {resultTwo}
+                {results[1]}
               </a>
             </i>
           }
@@ -72,10 +68,10 @@ const Results = ({
             <i>
               <a
                 id="resultThree"
-                href={`https://www.google.com/search?q=${resultThree}`}
+                href={`https://www.google.com/search?q=${results[2]}`}
                 target="_blank"
               >
-                {resultThree}
+                {results[2]}
               </a>
             </i>
           }

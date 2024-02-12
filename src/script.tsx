@@ -18,55 +18,18 @@ async function loadCategoryWeights() {
   return weights;
 }
 
-async function getRankedFoods(
-  userBasics: any,
-  userKeywords: any,
-  userCuisines: any,
-  userRestrictions: any
-) {
-  let scores = await calculateScores(
-    userBasics,
-    userKeywords,
-    userCuisines,
-    userRestrictions
-  );
+async function getRankedFoods(formValues: any[]) {
+  let scores = await calculateScores(formValues);
   // sort from highest to lowest score
   let results = Object.entries(scores).sort((x, y) => y[1] - x[1]);
   let rankedFoods = results.map(([food, _]) => food);
   console.log("ranked:", rankedFoods);
 
-  // let resultOne = document.createElement("a");
-  // let resultOneText = document.createTextNode(rankedFoods[0]);
-  // resultOne.appendChild(resultOneText);
-  // resultOne.href = `https://www.google.com/search?q=${rankedFoods[0]}`;
-  // resultOne.target = "_blank"; // open in new tab
-
-  // let resultTwo = document.createElement("a");
-  // let resultTwoText = document.createTextNode(rankedFoods[1]);
-  // resultTwo.appendChild(resultTwoText);
-  // resultTwo.href = `https://www.google.com/search?q=${rankedFoods[1]}`;
-  // resultTwo.target = "_blank";
-
-  // let resultThree = document.createElement("a");
-  // let resultThreeText = document.createTextNode(rankedFoods[2]);
-  // resultThree.appendChild(resultThreeText);
-  // resultThree.href = `https://www.google.com/search?q=${rankedFoods[2]}`;
-  // resultThree.target = "_blank";
-
-  // document.getElementById("resultOne")?.appendChild(resultOne);
-  // document.getElementById("resultTwo")?.appendChild(resultTwo);
-  // document.getElementById("resultThree")?.appendChild(resultThree);
-
-  // useForceUpdate();
-  return [rankedFoods[0], rankedFoods[1], rankedFoods[2]];
+  return rankedFoods;
 }
 
-async function calculateScores(
-  userBasics: any,
-  userKeywords: any,
-  userCuisines: any,
-  userRestrictions: any
-) {
+async function calculateScores(formValues: any[]) {
+  let [userBasics, userKeywords, userCuisines, userRestrictions] = formValues;
   console.log(
     "user choices: ",
     userBasics,
