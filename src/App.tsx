@@ -36,65 +36,6 @@ function App() {
 
   const [results, setResults] = useState(["?", "?", "?"]);
 
-  // const formOne = useForm({
-  //   initialValues: {
-  //     sweetSavory: "sweet",
-  //     lightHeavy: "light",
-  //     healthyLevel: 0,
-  //   },
-  //   validate: {
-  //     healthyLevel: (value) =>
-  //       value === 0 ? "Selection required: healthy level" : null,
-  //   },
-  // });
-
-  // const formTwoSavory = useForm({
-  //   initialValues: {
-  //     spicy: false,
-  //     fried: false,
-  //     carbs: false,
-  //     cheesy: false,
-  //     meaty: false,
-  //     crunchy: false,
-  //     comforting: false,
-  //     refreshing: false,
-  //   },
-  // });
-
-  // const formTwoSweet = useForm({
-  //   initialValues: {
-  //     warm: false,
-  //     fruity: false,
-  //     chocolatey: false,
-  //     baked: false,
-  //     creamy: false,
-  //     nutty: false,
-  //   },
-  // });
-
-  // const formThree = useForm({
-  //   initialValues: {
-  //     american: false,
-  //     italian: false,
-  //     mexican: false,
-  //     latinAmerican: false,
-  //     caribbean: false,
-  //     eastAsian: false,
-  //     southeastAsian: false,
-  //     indian: false,
-  //     mediterranean: false,
-  //     african: false,
-  //   },
-  // });
-
-  // const formFour = useForm({
-  //   initialValues: {
-  //     veg: false,
-  //     gf: false,
-  //     df: false,
-  //   },
-  // });
-
   function nextPage() {
     setSection(section + 1);
   }
@@ -119,68 +60,6 @@ function App() {
     window.location.reload();
   }
 
-  // function displayForm(i: number) {
-  //   let currForm;
-  //   switch (i) {
-  //     case 0: {
-  //       currForm = (
-  //         <form
-  //           onSubmit={formOne.onSubmit((values) => {
-  //             console.log(values);
-  //             nextPage();
-  //           })}
-  //         >
-  //           <div className="question-category">
-  //             <h3>The Basics</h3>
-  //             <i>What are you looking for?</i>
-  //           </div>
-
-  //           <br></br>
-
-  //           <OptionGroup
-  //             name="sweetSavory"
-  //             options={["sweet", "savory"]}
-  //             form={formOne}
-  //           />
-  //           <br />
-
-  //           <OptionGroup
-  //             name="lightHeavy"
-  //             options={["light", "middle", "heavy"]}
-  //             form={formOne}
-  //           />
-
-  //           <Rating name="healthyLevel" form={formOne} />
-  //           <br></br>
-
-  //           <button
-  //             className="next"
-  //             type="submit"
-  //             disabled={!formOne.isValid()}
-  //           >
-  //             Next
-  //           </button>
-  //         </form>
-  //       );
-  //       break;
-  //     }
-  //     case 1: {
-
-  //     }
-  //     default: {
-  //     }
-  //   }
-  //   return (
-  //     <motion.div
-  //       initial={{ opacity: 0 }}
-  //       animate={{ opacity: 1 }}
-  //       exit={{ opacity: 0 }}
-  //     >
-  //       {currForm}
-  //     </motion.div>
-  //   );
-  // }
-
   return (
     <>
       <h1 hidden={section === 4}>cravie</h1>
@@ -192,7 +71,6 @@ function App() {
 
       <div className="card">
         {/* basics */}
-
         {section === 0 && (
           <motion.div
             initial={{ opacity: 0 }}
@@ -206,6 +84,8 @@ function App() {
             />
           </motion.div>
         )}
+
+        {/* keywords */}
         {section === 1 && (
           <motion.div
             initial={{ x: 300, opacity: 0 }}
@@ -219,6 +99,8 @@ function App() {
             />
           </motion.div>
         )}
+
+        {/* cuisines */}
         {section === 2 && (
           <motion.div
             initial={{ x: 300, opacity: 0 }}
@@ -228,6 +110,8 @@ function App() {
             <PageCuisines nextFn={nextPage} setFn={setCuisines} />
           </motion.div>
         )}
+
+        {/* restrictions */}
         {section === 3 && (
           <motion.div
             initial={{ x: 300, opacity: 0 }}
@@ -242,6 +126,7 @@ function App() {
           </motion.div>
         )}
 
+        {/* results */}
         {section === 4 && (
           <motion.div
             initial={{ scale: 0, opacity: 0 }}
@@ -257,56 +142,6 @@ function App() {
             </button>
           </motion.div>
         )}
-
-        {/* keywords savory */}
-        {/* {section === 1 && (
-          <motion.div
-            initial={{ x: 300, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            exit={{ x: -300, opacity: 0 }}
-          >
-            {sweetSavory === "sweet" ? FormKeywordsSweet : FormKeywordsSavory}
-          </motion.div>
-        )} */}
-
-        {/* cuisines */}
-        {/* {section === 2 && (
-          <motion.div
-            initial={{ x: 300, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            exit={{ x: -300, opacity: 0 }}
-          >
-            {FormCuisines}
-          </motion.div>
-        )} */}
-
-        {/* restrictions */}
-        {/* {section === 3 && (
-          <motion.div
-            initial={{ x: 300, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            exit={{ x: -300, opacity: 0 }}
-          >
-            {FormRestrictions}
-          </motion.div>
-        )} */}
-
-        {/* results */}
-        {/* {section === 4 && (
-          <motion.div
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0, opacity: 0 }}
-          >
-            <Results results={results} />
-            <br></br>
-            <br></br>
-            <br></br>
-            <button className="next" onClick={handleRestart}>
-              Start Over
-            </button>
-          </motion.div>
-        )} */}
       </div>
     </>
   );
