@@ -1,25 +1,12 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { useForm } from "@mantine/form";
 import MotionWrapper from "./components/MotionWrapper.tsx";
-import OptionGroup from "./components/OptionGroup";
-import Rating from "./components/Rating";
-import CheckboxGroup from "./components/CheckboxGroup";
-import KeyButton from "./components/KeyButton";
-// import OptionGroup from "./components/OptionGroup";
-// import Toggle from "./components/Toggle";
-// import CheckboxGroup from "./components/CheckboxGroup";
-// import Rating from "./components/Rating";
-// import { IconCookie } from "@tabler/icons-react";
 import "./App.css";
-// import KeyButton from "./components/KeyButton";
-// import { useForm } from "@mantine/form";
 import { getRankedFoods } from "./script.tsx";
 import Results from "./components/Results.tsx";
 import PageBasics from "./components/Pages/PageBasics.tsx";
 import { motion } from "framer-motion";
 import PageKeywords from "./components/Pages/PageKeywords.tsx";
-// import PageKeywordsSavory from "./components/Pages/PageKeywordsSavory.tsx";
-// import PageKeywordsSweet from "./components/Pages/PageKeywordsSweet.tsx";
 import PageCuisines from "./components/Pages/PageCuisines.tsx";
 import PageRestrictions from "./components/Pages/PageRestrictions.tsx";
 

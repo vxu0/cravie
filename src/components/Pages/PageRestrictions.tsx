@@ -1,7 +1,5 @@
-import { useForm } from "@mantine/form";
 import { IconCookie } from "@tabler/icons-react";
 import Toggle from "../Toggle";
-import { useEffect } from "react";
 
 interface Props {
   backFn: () => void;

@@ -1,5 +1,3 @@
-import { useForm } from "@mantine/form";
-import { motion } from "framer-motion";
 import OptionGroup from "../OptionGroup";
 import Rating from "../Rating";
 
@@ -11,18 +9,6 @@ interface Props {
 }
 
 export default function PageBasics({ setFn, sweetFn, nextFn, form }: Props) {
-  // const thisForm = useForm({
-  //   initialValues: {
-  //     sweetSavory: "sweet",
-  //     lightHeavy: "light",
-  //     healthyLevel: 0,
-  //   },
-  //   validate: {
-  //     healthyLevel: (value) =>
-  //       value === 0 ? "Selection required: healthy level" : null,
-  //   },
-  // });
-
   return (
     <form
       onSubmit={form.onSubmit((values: any) => {

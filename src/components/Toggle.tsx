@@ -14,7 +14,7 @@ interface Props {
   form: any;
 }
 
-const useStyles = createStyles((theme, { checked }: { checked: boolean }) => ({
+const useStyles = createStyles((theme) => ({
   body: {
     display: "flex",
     alignItems: "center",
@@ -50,7 +50,7 @@ const useStyles = createStyles((theme, { checked }: { checked: boolean }) => ({
 
 const Toggle = ({ name, label, form }: Props) => {
   // const checked = form.values[name];
-  const { classes } = useStyles({ checked: form.values[name] });
+  const { classes } = useStyles();
   return (
     <>
       <MantineProvider theme={{ primaryColor: "teal" }}>
