@@ -1,27 +1,41 @@
 import { useForm } from "@mantine/form";
 import { IconCookie } from "@tabler/icons-react";
 import Toggle from "../Toggle";
+import { useEffect } from "react";
 
 interface Props {
+  backFn: () => void;
   nextFn: () => void;
-  resultsFn: () => void;
+  resultsFn: (restr: string[]) => void;
   setFn: ({}) => void;
+  form: any;
 }
 
-export default function PageRestrictions({ nextFn, resultsFn, setFn }: Props) {
-  const thisForm = useForm({
-    initialValues: {
-      veg: false,
-      gf: false,
-      df: false,
-    },
-  });
+interface Arr {
+  [key: string]: string;
+}
+
+const labels: Arr = {
+  veg: "Vegetarian/Vegan",
+  gf: "Gluten-free",
+  df: "Dairy-free",
+};
+
+export default function PageRestrictions({
+  backFn,
+  nextFn,
+  setFn,
+  resultsFn,
+  form,
+}: Props) {
   return (
     <form
-      onSubmit={thisForm.onSubmit((values) => {
+      onSubmit={form.onSubmit((values: any) => {
         console.log(values);
         setFn(values);
-        resultsFn();
+        // results.setState(values);
+        // setTimeout(resultsFn, 1000);
+        resultsFn(values);
         nextFn();
       })}
     >
@@ -33,16 +47,30 @@ export default function PageRestrictions({ nextFn, resultsFn, setFn }: Props) {
       <div className="row">
         <div className="column">&nbsp;</div>
         <div className="column-toggle">
-          <Toggle name="veg" label="Vegetarian/Vegan" form={thisForm} />
-          <Toggle name="gf" label="Gluten-free" form={thisForm} />
-          <Toggle name="df" label="Dairy-free" form={thisForm} />
+          {Object.keys(form.values).map((kw) => {
+            return (
+              <Toggle
+                name={kw}
+                key={kw}
+                label={labels[kw]}
+                form={form}
+              ></Toggle>
+            );
+          })}
+
+          {/* <Toggle
+            name="veg"
+            label="Vegetarian/Vegan"
+            form={form}
+            setFn={setFn}
+          />
+          <Toggle name="gf" label="Gluten-free" form={form} setFn={setFn} />
+          <Toggle name="df" label="Dairy-free" form={form} setFn={setFn} /> */}
         </div>
       </div>
       {/* <br></br> */}
 
       {/* <button className="next">Back</button> */}
-      <br></br>
-      <br></br>
       <br></br>
       <button className="cookie" type="submit">
         <IconCookie
@@ -50,26 +78,16 @@ export default function PageRestrictions({ nextFn, resultsFn, setFn }: Props) {
           color="orange"
           fill="orange"
           className="cookie"
-          //   onClick={handleCookieClick}
-          //   () => {
-          //     setSection(-1);
-          //     document.body.style.background = "#5fa3ac";
-          //     getRankedFoods(
-          //       {...otherFormValues,
-          //       thisForm.values}
-          //     )
-          //       .then((res) => {
-          //         setResults(res);
-          //         setSection(4);
-          //       })
-          //       .catch((err) => console.log("results error:", err));
-          //   }}
         ></IconCookie>
       </button>
       <br></br>
       <h3 className="clickme">I'm ready!</h3>
       <br></br>
       <br></br>
+      <br></br>
+      <button className="back" type="button" onClick={backFn}>
+        back
+      </button>
       <br></br>
     </form>
   );

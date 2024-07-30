@@ -7,23 +7,25 @@ interface Props {
   nextFn: () => void;
   setFn: ({}) => void;
   sweetFn: (s: string) => void;
+  form: any;
 }
 
-export default function PageBasics({ setFn, sweetFn, nextFn }: Props) {
-  const thisForm = useForm({
-    initialValues: {
-      sweetSavory: "sweet",
-      lightHeavy: "light",
-      healthyLevel: 0,
-    },
-    validate: {
-      healthyLevel: (value) =>
-        value === 0 ? "Selection required: healthy level" : null,
-    },
-  });
+export default function PageBasics({ setFn, sweetFn, nextFn, form }: Props) {
+  // const thisForm = useForm({
+  //   initialValues: {
+  //     sweetSavory: "sweet",
+  //     lightHeavy: "light",
+  //     healthyLevel: 0,
+  //   },
+  //   validate: {
+  //     healthyLevel: (value) =>
+  //       value === 0 ? "Selection required: healthy level" : null,
+  //   },
+  // });
+
   return (
     <form
-      onSubmit={thisForm.onSubmit((values) => {
+      onSubmit={form.onSubmit((values: any) => {
         console.log(values);
         setFn(values);
         sweetFn(values.sweetSavory);
@@ -40,21 +42,21 @@ export default function PageBasics({ setFn, sweetFn, nextFn }: Props) {
       <OptionGroup
         name="sweetSavory"
         options={["sweet", "savory"]}
-        form={thisForm}
+        form={form}
       />
       <br />
 
       <OptionGroup
         name="lightHeavy"
         options={["light", "middle", "heavy"]}
-        form={thisForm}
+        form={form}
       />
 
-      <Rating name="healthyLevel" form={thisForm} />
+      <Rating name="healthyLevel" form={form} />
       <br></br>
 
-      <button className="next" type="submit" disabled={!thisForm.isValid()}>
-        Next
+      <button className="next" type="submit" disabled={!form.isValid()}>
+        next
       </button>
     </form>
   );

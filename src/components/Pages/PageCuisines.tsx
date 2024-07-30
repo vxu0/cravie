@@ -1,29 +1,16 @@
-import { useForm } from "@mantine/form";
 import CheckboxGroup from "../CheckboxGroup";
 
 interface Props {
+  backFn: () => void;
   nextFn: () => void;
   setFn: ({}) => void;
+  form: any;
 }
 
-export default function PageCuisines({ nextFn, setFn }: Props) {
-  const thisForm = useForm({
-    initialValues: {
-      american: false,
-      italian: false,
-      mexican: false,
-      latinAmerican: false,
-      caribbean: false,
-      eastAsian: false,
-      southeastAsian: false,
-      indian: false,
-      mediterranean: false,
-      african: false,
-    },
-  });
+export default function PageCuisines({ backFn, nextFn, setFn, form }: Props) {
   return (
     <form
-      onSubmit={thisForm.onSubmit((values) => {
+      onSubmit={form.onSubmit((values: any) => {
         console.log(values);
         setFn(values);
         nextFn();
@@ -36,7 +23,7 @@ export default function PageCuisines({ nextFn, setFn }: Props) {
 
       <br></br>
       <CheckboxGroup
-        form={thisForm}
+        form={form}
         options={[
           { title: "American", name: "american", image: "🍔" },
           { title: "Italian", name: "italian", image: "🍝" },
@@ -65,10 +52,14 @@ export default function PageCuisines({ nextFn, setFn }: Props) {
       <br></br>
       <br></br>
       <br></br>
-      {/* <button className="next">Back</button> */}
-      <button className="next" type="submit">
-        Next
-      </button>
+      <div>
+        <button className="back" type="button" onClick={backFn}>
+          back
+        </button>
+        <button className="next" type="submit">
+          next
+        </button>
+      </div>
     </form>
   );
 }

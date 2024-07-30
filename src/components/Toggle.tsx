@@ -7,12 +7,14 @@ import {
 } from "@mantine/core";
 
 interface Props {
+  // onChange?(checked: boolean): void;
+  // setFn: ({}) => void;
   name: string;
   label: string;
   form: any;
 }
 
-const useStyles = createStyles((theme) => ({
+const useStyles = createStyles((theme, { checked }: { checked: boolean }) => ({
   body: {
     display: "flex",
     alignItems: "center",
@@ -23,6 +25,8 @@ const useStyles = createStyles((theme) => ({
     color: theme.white,
     paddingLeft: theme.spacing.lg,
     paddingRight: theme.spacing.lg,
+    // color: "blue",
+    // color: checked ? "blue" : "red",
   },
 
   track: {
@@ -35,8 +39,9 @@ const useStyles = createStyles((theme) => ({
     width: rem(25),
     height: rem(25),
     left: rem(-8),
-    transition: "background-color 100ms ease, left 100ms ease",
-
+    // right: rem(20),
+    transition: "background-color 100ms ease left 100ms ease",
+    // backgroundColor: checked ? "teal" : undefined,
     "input:checked + * > &": {
       backgroundColor: "teal",
     },
@@ -44,7 +49,8 @@ const useStyles = createStyles((theme) => ({
 }));
 
 const Toggle = ({ name, label, form }: Props) => {
-  const { classes } = useStyles();
+  // const checked = form.values[name];
+  const { classes } = useStyles({ checked: form.values[name] });
   return (
     <>
       <MantineProvider theme={{ primaryColor: "teal" }}>
@@ -53,6 +59,14 @@ const Toggle = ({ name, label, form }: Props) => {
             name={name}
             label={label}
             classNames={classes}
+            checked={form.values[name]}
+            onClick={() => {
+              console.log("ONCLICK");
+              // ???
+              form.setFieldValue(name, !form.values[name]);
+              // setFn(form.values);
+              //
+            }}
             {...form.getInputProps(name)}
           />
         </Group>

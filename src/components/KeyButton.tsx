@@ -1,10 +1,10 @@
 import { UnstyledButton, createStyles } from "@mantine/core";
-import { useUncontrolled } from "@mantine/hooks";
 import { IconBulb } from "@tabler/icons-react";
 
-interface Props {
-  name: string;
+interface ButtonProps {
+  onChange?(checked: boolean): void;
   label: string;
+  name: string;
   form: any;
 }
 
@@ -23,37 +23,23 @@ const useStyles = createStyles((theme, { checked }: { checked: boolean }) => ({
   },
 }));
 
-interface ButtonProps {
-  checked?: boolean;
-  defaultChecked?: boolean;
-  onChange?(checked: boolean): void;
-  label: string;
-}
-
-export function Button({
-  checked,
-  defaultChecked,
+export function KeyButton({
+  name,
   onChange,
   label,
   className,
+  form,
   ...others
 }: ButtonProps &
   Omit<React.ComponentPropsWithoutRef<"button">, keyof ButtonProps>) {
-  const [value, handleChange] = useUncontrolled({
-    value: checked,
-    defaultValue: defaultChecked,
-    finalValue: false,
-    onChange,
-  });
-
-  const { classes, cx } = useStyles({ checked: value });
+  const { classes, cx } = useStyles({ checked: form.values[name] });
 
   return (
     <>
       <UnstyledButton
         {...others}
         onClick={() => {
-          handleChange(!value);
+          form.setFieldValue(name, !form.values[name]);
         }}
         className={cx(classes.button, className)}
       >
@@ -63,11 +49,5 @@ export function Button({
     </>
   );
 }
-
-const KeyButton = ({ name, label, form }: Props) => {
-  return (
-    <Button name={name} label={label} {...form.getInputProps(name)}></Button>
-  );
-};
 
 export default KeyButton;

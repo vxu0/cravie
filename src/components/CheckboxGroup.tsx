@@ -8,8 +8,6 @@ import {
   createStyles,
   rem,
 } from "@mantine/core";
-import { useUncontrolled } from "@mantine/hooks";
-// import { useState } from "react";
 
 interface Props {
   options: {
@@ -58,39 +56,31 @@ const useStyles = createStyles((theme, { checked }: { checked: boolean }) => ({
 }));
 
 interface ImageCheckboxProps {
-  checked?: boolean;
-  defaultChecked?: boolean;
   onChange?(checked: boolean): void;
   title: string;
   image: string;
+  form: any;
+  name: string;
 }
 
 export function ImageCheckbox({
-  checked,
-  defaultChecked,
   onChange,
   title,
   className,
   image,
+  form,
+  name,
   ...others
 }: ImageCheckboxProps &
   Omit<React.ComponentPropsWithoutRef<"button">, keyof ImageCheckboxProps>) {
-  const [value, handleChange] = useUncontrolled({
-    value: checked,
-    defaultValue: defaultChecked,
-    finalValue: false,
-    onChange,
-  });
-
-  const { classes, cx } = useStyles({ checked: value });
+  const { classes, cx } = useStyles({ checked: form.values[name] });
 
   return (
     <MantineProvider theme={{ primaryColor: "yellow" }}>
       <UnstyledButton
         {...others}
         onClick={() => {
-          handleChange(!value);
-          // setAllSelected(!allSelected);
+          form.setFieldValue(name, !form.values[name]);
         }}
         className={cx(classes.button, className)}
       >
@@ -103,7 +93,7 @@ export function ImageCheckbox({
         </div>
 
         <Checkbox
-          checked={value}
+          checked={form.values[name]}
           onChange={() => {}}
           tabIndex={-1}
           styles={{ input: { cursor: "pointer" } }}
@@ -113,14 +103,13 @@ export function ImageCheckbox({
   );
 }
 
-// const [selectedOptions, setSelectedOptions] = useState([]);
-
 const CheckboxGroup = ({ options, form }: Props) => {
   const items = options.map((item) => (
     <ImageCheckbox
       {...item}
       name={item.name}
       key={item.title}
+      form={form}
       {...form.getInputProps(item.name)}
     />
   ));
@@ -136,18 +125,7 @@ const CheckboxGroup = ({ options, form }: Props) => {
         >
           {items}
         </SimpleGrid>
-
-        {/* <Checkbox onClick={() => {
-        options.map((item) => form.getInputProps(item.name))
-      }}>select all</Checkbox> */}
-        {/* <button type="button" onClick={}>
-        {!form.values ? "Select all" : "Deselect all"}
-      </button> */}
       </Center>
-      {/* <br></br> */}
-      {/* <button type="button" onClick={() => setAllSelected(!allSelected)}>
-        {!allSelected ? "Select all" : "Deselect all"}
-      </button> */}
     </>
   );
 };

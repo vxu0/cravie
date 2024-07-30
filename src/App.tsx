@@ -1,4 +1,10 @@
-import { useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { useForm } from "@mantine/form";
+import MotionWrapper from "./components/MotionWrapper.tsx";
+import OptionGroup from "./components/OptionGroup";
+import Rating from "./components/Rating";
+import CheckboxGroup from "./components/CheckboxGroup";
+import KeyButton from "./components/KeyButton";
 // import OptionGroup from "./components/OptionGroup";
 // import Toggle from "./components/Toggle";
 // import CheckboxGroup from "./components/CheckboxGroup";
@@ -30,7 +36,8 @@ function App() {
   // 4: results
   const [sweetOrSavory, setSweetOrSavory] = useState("sweet");
   const [basics, setBasics] = useState({});
-  const [keywords, setKeywords] = useState({});
+  const [sweetKeywords, setSweetKeywords] = useState({});
+  const [savoryKeywords, setSavoryKeywords] = useState({});
   const [cuisines, setCuisines] = useState({});
   const [restrictions, setRestrictions] = useState({});
 
@@ -40,34 +47,119 @@ function App() {
     setSection(section + 1);
   }
 
-  function prevPage() {
+  function backPage() {
     setSection(section - 1);
   }
 
-  function getResults() {
+  function getResults(restr: string[]) {
     console.log("in results fn");
     setSection(-1);
     document.body.style.background = "#5fa3ac";
-    getRankedFoods([basics, keywords, cuisines, restrictions])
-      .then((res) => {
-        console.log("res:", res);
-        setResults(res);
-      })
-      .catch((err) => console.log("results error:", err));
+    if (sweetOrSavory === "sweet") {
+      console.log("inputs:", [basics, sweetKeywords, cuisines, restr]);
+      getRankedFoods([basics, sweetKeywords, cuisines, restr])
+        .then((res) => {
+          console.log("res:", res);
+          // return res;
+          setResults(res);
+          return res;
+          // nextPage();
+        })
+        .catch((err) => console.log("results error:", err));
+    } else {
+      console.log("inputs:", [basics, savoryKeywords, cuisines, restr]);
+      getRankedFoods([basics, savoryKeywords, cuisines, restr])
+        .then((res) => {
+          console.log("res:", res);
+          // return res;
+          setResults(res);
+          return res;
+          // nextPage();
+        })
+        .catch((err) => console.log("results error:", err));
+    }
+    return [];
   }
 
   function handleRestart() {
     // window.location.reload();
     setSweetOrSavory("sweet");
     setBasics({});
-    setKeywords({});
+    setSweetKeywords({});
+    setSavoryKeywords({});
     setCuisines({});
     setRestrictions({});
     setResults(["?", "?", "?"]);
 
+    formBasics.reset();
+    formSavoryKeywords.reset();
+    formSweetKeywords.reset();
+    formCuisines.reset();
+    formRestrictions.reset();
+
     document.body.style.background = "#32575c";
     setSection(0);
   }
+
+  //
+  const formBasics = useForm({
+    initialValues: {
+      sweetSavory: "sweet",
+      lightHeavy: "light",
+      healthyLevel: 0,
+    },
+    validate: {
+      healthyLevel: (value) =>
+        value === 0 ? "Selection required: healthy level" : null,
+    },
+  });
+
+  const formCuisines = useForm({
+    initialValues: {
+      american: false,
+      italian: false,
+      mexican: false,
+      latinAmerican: false,
+      caribbean: false,
+      eastAsian: false,
+      southeastAsian: false,
+      indian: false,
+      mediterranean: false,
+      african: false,
+    },
+  });
+
+  const formSavoryKeywords = useForm({
+    initialValues: {
+      spicy: false,
+      fried: false,
+      carbs: false,
+      cheesy: false,
+      meaty: false,
+      crunchy: false,
+      comforting: false,
+      refreshing: false,
+    },
+  });
+
+  const formSweetKeywords = useForm({
+    initialValues: {
+      warm: false,
+      fruity: false,
+      chocolatey: false,
+      baked: false,
+      creamy: false,
+      nutty: false,
+    },
+  });
+
+  const formRestrictions = useForm({
+    initialValues: {
+      veg: false,
+      gf: false,
+      df: false,
+    },
+  });
 
   return (
     <>
@@ -81,17 +173,16 @@ function App() {
       <div className="card">
         {/* basics */}
         {section === 0 && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          >
-            <PageBasics
-              nextFn={nextPage}
-              setFn={setBasics}
-              sweetFn={setSweetOrSavory}
-            />
-          </motion.div>
+          <MotionWrapper
+            body={
+              <PageBasics
+                nextFn={nextPage}
+                setFn={setBasics}
+                sweetFn={setSweetOrSavory}
+                form={formBasics}
+              />
+            }
+          />
         )}
 
         {/* keywords */}
@@ -101,11 +192,21 @@ function App() {
             animate={{ x: 0, opacity: 1 }}
             exit={{ x: -300, opacity: 0 }}
           >
-            <PageKeywords
-              sweetOrSavory={sweetOrSavory}
-              nextFn={nextPage}
-              setFn={setKeywords}
-            />
+            {sweetOrSavory === "sweet" ? (
+              <PageKeywords
+                backFn={backPage}
+                setFn={setSweetKeywords}
+                nextFn={nextPage}
+                form={formSweetKeywords}
+              />
+            ) : (
+              <PageKeywords
+                backFn={backPage}
+                setFn={setSavoryKeywords}
+                nextFn={nextPage}
+                form={formSavoryKeywords}
+              />
+            )}
           </motion.div>
         )}
 
@@ -116,7 +217,12 @@ function App() {
             animate={{ x: 0, opacity: 1 }}
             exit={{ x: -300, opacity: 0 }}
           >
-            <PageCuisines nextFn={nextPage} setFn={setCuisines} />
+            <PageCuisines
+              backFn={backPage}
+              nextFn={nextPage}
+              setFn={setCuisines}
+              form={formCuisines}
+            />
           </motion.div>
         )}
 
@@ -128,12 +234,25 @@ function App() {
             exit={{ x: -300, opacity: 0 }}
           >
             <PageRestrictions
+              backFn={backPage}
               nextFn={nextPage}
               resultsFn={getResults}
               setFn={setRestrictions}
+              form={formRestrictions}
             />
           </motion.div>
         )}
+
+        {/* {section === 4 && (
+          <button
+            onClick={() => {
+              getResults();
+              nextPage();
+            }}
+          >
+            get results
+          </button>
+        )} */}
 
         {/* results */}
         {section === 4 && (

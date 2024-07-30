@@ -2,6 +2,7 @@
 import ConfettiExplosion, { ConfettiProps } from "react-confetti-explosion";
 
 interface Props {
+  // resultsFn: () => string[];
   results: string[];
   //   userBasics: any;
   //   userKeywords: any;
