@@ -26,7 +26,7 @@ function App() {
   const [sweetKeywords, setSweetKeywords] = useState({});
   const [savoryKeywords, setSavoryKeywords] = useState({});
   const [cuisines, setCuisines] = useState({});
-  const [restrictions, setRestrictions] = useState({});
+  const [_, setRestrictions] = useState({});
 
   const [results, setResults] = useState(["?", "?", "?"]);
 
