@@ -28,7 +28,7 @@ function App() {
   const [cuisines, setCuisines] = useState({});
   const [_, setRestrictions] = useState({});
 
-  const [results, setResults] = useState(["?", "?", "?"]);
+  const [results, setResults] = useState(["loading...", "...", "..."]);
 
   function nextPage() {
     setSection(section + 1);

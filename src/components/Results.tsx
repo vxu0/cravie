@@ -48,7 +48,7 @@ const Results = ({
           {results[0]}
         </a>
       </h1>
-      <ConfettiExplosion {...largeProps} />
+      {results[0] != "loading..." && <ConfettiExplosion {...largeProps} />}
       <br />
       <h2>
         <i>
